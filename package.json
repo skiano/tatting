@@ -12,6 +12,7 @@
     "build:mjs": "rollup --config rollup.mjs.js",
     "build:umd": "rollup --config rollup.umd.js",
     "build:cjs": "rollup --config rollup.cjs.js",
+    "dev": "rollup --config rollup.cjs.js --watch",
     "size": "disty --path dist"
   },
   "repository": {

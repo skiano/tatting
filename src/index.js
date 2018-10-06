@@ -1,10 +1,6 @@
-const t = (isPlaying, timer, head, tail) => {
-  function Task(cb) {
-    this.do = cb;
-  }
-
-  var enqueue = (cb) => {
-    const task = new Task(cb);
+const t = (/**/ isPlaying, timer, head, tail) => {
+  var enqueue = (cb, /**/ task) => {
+    task = { cb };
 
     if (!head) head = task;
     if (tail) tail.next = task;
@@ -17,7 +13,7 @@ const t = (isPlaying, timer, head, tail) => {
   ,
   dequeue = () => {
     if (head) {
-      head.do();
+      head.cb();
       head = head.next;
     } else {
       clearInterval(timer);
@@ -30,13 +26,7 @@ const t = (isPlaying, timer, head, tail) => {
   ,
   play = (interval = 1000) => {
     isPlaying = true
-    setInterval(dequeue, interval);
-    // timer = interval > 0
-    //   ? setInterval(dequeue, interval)
-    //   : setImmediate(() => {
-    //     dequeue();
-    //     if (head) play(0);
-    //   });
+    timer = setInterval(dequeue, interval);
   }
   ,
   pause = () => {
@@ -45,11 +35,11 @@ const t = (isPlaying, timer, head, tail) => {
   }
   ,
   forLoop = (cb, start, end, delta = 1) => {
-    const continues = delta > 0
-      ? (start <= end)
-      : (start >= end)
-
-    if (continues) {
+    if (
+      delta > 0
+        ? (start <= end)
+        : (start >= end)
+    ) {
       enqueue(() => {
         cb(start);
         forLoop(cb, start + delta, end);

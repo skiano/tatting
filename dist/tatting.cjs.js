@@ -1,17 +1,8 @@
 'use strict';
 
-const t = () => {
-  let isPlaying;
-  let timer;
-  let head;
-  let tail;
-
-  function Task(cb) {
-    this.do = cb;
-  }
-
-  const enqueue = (cb) => {
-    const task = new Task(cb);
+const t = (/**/ isPlaying, timer, head, tail) => {
+  var enqueue = (cb, /**/ task) => {
+    task = { cb };
 
     if (!head) head = task;
     if (tail) tail.next = task;
@@ -20,64 +11,59 @@ const t = () => {
     if (!timer && isPlaying) {
       play();
     }
-  };
-
-  const dequeue = () => {
+  }
+  ,
+  dequeue = () => {
     if (head) {
-      head.do();
+      head.cb();
       head = head.next;
     } else {
       clearInterval(timer);
     }
-  };
-
-  const flush = () => {
+  }
+  ,
+  flush = () => {
     while (head) { dequeue(); }
-  };
-
-  const play = (interval = 1000) => {
+  }
+  ,
+  play = (interval = 1000) => {
     isPlaying = true;
-    timer = interval > 0
-      ? setInterval(dequeue, interval)
-      : setImmediate(() => {
-        dequeue();
-        if (head) play(0);
-      });
-  };
-
-  const pause = () => {
+    timer = setInterval(dequeue, interval);
+  }
+  ,
+  pause = () => {
     isPlaying = false;
     clearInterval(timer);
-  };
-
-  const forLoop = (cb, start, end, delta = 1) => {
-    const continues = delta > 0
-      ? (start <= end)
-      : (start >= end);
-
-    if (continues) {
+  }
+  ,
+  forLoop = (cb, start, end, delta = 1) => {
+    if (
+      delta > 0
+        ? (start <= end)
+        : (start >= end)
+    ) {
       enqueue(() => {
         cb(start);
         forLoop(cb, start + delta, end);
       });
     }
-  };
-
-  const eachLoop = (items, cb) => {
+  }
+  ,
+  eachLoop = (items, cb) => {
     forLoop((i) => {
       cb(items[i], i);
     }, 0, items.length - 1);
-  };
-
-  const whileLoop = (condition, cb) => {
+  }
+  ,
+  whileLoop = (condition, cb) => {
     if (condition()) {
       enqueue(() => {
         cb();
         whileLoop(condition, cb);
       });
     }
-  };
-
+  }
+  ;
   return {
     add: enqueue,
     for: forLoop,
