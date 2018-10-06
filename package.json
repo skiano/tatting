@@ -1,0 +1,32 @@
+{
+  "name": "tatting",
+  "version": "1.0.0",
+  "description": "async loopy-ness",
+  "main": "dist/tatting.cjs.js",
+  "module": "dist/tatting.mjs",
+  "browser": "dist/tatting.umd.js",
+  "files": [
+    "src/*"
+  ],
+  "scripts": {
+    "build:mjs": "rollup --config rollup.mjs.js",
+    "build:umd": "rollup --config rollup.umd.js",
+    "build:cjs": "rollup --config rollup.cjs.js",
+    "size": "disty --path dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skiano/tatting.git"
+  },
+  "author": "Greg Skiano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skiano/tatting/issues"
+  },
+  "homepage": "https://github.com/skiano/tatting#readme",
+  "devDependencies": {
+    "disty": "^1.1.1",
+    "rollup": "^0.66.2",
+    "rollup-plugin-uglify-es": "0.0.1"
+  }
+}
