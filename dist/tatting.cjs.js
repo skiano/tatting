@@ -1,6 +1,6 @@
 'use strict';
 
-function createScheduler() {
+const t = () => {
   let isPlaying;
   let timer;
   let head;
@@ -10,7 +10,7 @@ function createScheduler() {
     this.do = cb;
   }
 
-  function enqueue(cb) {
+  const enqueue = (cb) => {
     const task = new Task(cb);
 
     if (!head) head = task;
@@ -20,21 +20,22 @@ function createScheduler() {
     if (!timer && isPlaying) {
       play();
     }
-  }
+  };
 
-  function dequeue() {
+  const dequeue = () => {
     if (head) {
       head.do();
       head = head.next;
     } else {
       clearInterval(timer);
     }
-  }
-  function flush() {
-    while (head) { dequeue(); }
-  }
+  };
 
-  function play(interval = 1000) {
+  const flush = () => {
+    while (head) { dequeue(); }
+  };
+
+  const play = (interval = 1000) => {
     isPlaying = true;
     timer = interval > 0
       ? setInterval(dequeue, interval)
@@ -42,14 +43,14 @@ function createScheduler() {
         dequeue();
         if (head) play(0);
       });
-  }
+  };
 
-  function pause() {
+  const pause = () => {
     isPlaying = false;
     clearInterval(timer);
-  }
+  };
 
-  function forLoop(cb, start, end, delta = 1) {
+  const forLoop = (cb, start, end, delta = 1) => {
     const continues = delta > 0
       ? (start <= end)
       : (start >= end);
@@ -60,22 +61,22 @@ function createScheduler() {
         forLoop(cb, start + delta, end);
       });
     }
-  }
+  };
 
-  function eachLoop(items, cb) {
+  const eachLoop = (items, cb) => {
     forLoop((i) => {
       cb(items[i], i);
     }, 0, items.length - 1);
-  }
+  };
 
-  function whileLoop(condition, cb) {
+  const whileLoop = (condition, cb) => {
     if (condition()) {
       enqueue(() => {
         cb();
         whileLoop(condition, cb);
       });
     }
-  }
+  };
 
   return {
     add: enqueue,
@@ -86,12 +87,10 @@ function createScheduler() {
     play,
     pause,
   }
-}
+};
 
 function tatting() {
-  return createScheduler.t || (createScheduler.t = createScheduler());
+  return t.t || (t.t = t());
 }
-
-// console.log((0, 1))
 
 module.exports = tatting;
