@@ -6,7 +6,7 @@
   "module": "dist/tatting.mjs",
   "browser": "dist/tatting.umd.js",
   "files": [
-    "src/*"
+    "dist/*",
   ],
   "scripts": {
     "build:mjs": "rollup --config rollup.mjs.js",
