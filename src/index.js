@@ -70,7 +70,7 @@ const t = (/**/ isPlaying, timer, head, tail) => {
     flush,
     play,
     pause,
-  }
+  };
 }
 
 export default function tatting() {

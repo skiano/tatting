@@ -72,7 +72,7 @@ const t = (/**/ isPlaying, timer, head, tail) => {
     flush,
     play,
     pause,
-  }
+  };
 };
 
 function tatting() {

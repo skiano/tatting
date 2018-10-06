@@ -1,4 +1,5 @@
 import uglify from "rollup-plugin-uglify-es";
+import buble from 'rollup-plugin-buble';
 
 export default {
   input: 'src/index.js',
@@ -8,6 +9,7 @@ export default {
     name: 'tatting',
   },
   plugins: [
+    buble(),
     uglify(),
   ],
 };

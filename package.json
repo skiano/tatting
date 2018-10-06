@@ -14,7 +14,7 @@
     "build:cjs": "rollup --config rollup.cjs.js",
     "build": "npm run build:mjs | npm run build:umd | npm run build:cjs",
     "dev": "rollup --config rollup.cjs.js --watch",
-    "size": "disty --path dist",
+    "size": "npm run build && disty --path dist",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -30,6 +30,7 @@
   "devDependencies": {
     "disty": "^1.1.1",
     "rollup": "^0.66.2",
+    "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-uglify-es": "0.0.1"
   }
 }
