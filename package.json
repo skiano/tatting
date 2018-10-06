@@ -12,7 +12,9 @@
     "build:mjs": "rollup --config rollup.mjs.js",
     "build:umd": "rollup --config rollup.umd.js",
     "build:cjs": "rollup --config rollup.cjs.js",
+    "build": "npm run build:mjs | npm run build:umd | npm run build:cjs",
     "dev": "rollup --config rollup.cjs.js --watch",
+    "prepublish": "npm run build",
     "size": "disty --path dist"
   },
   "repository": {
