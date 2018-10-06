@@ -1,6 +1,6 @@
 {
   "name": "tatting",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "async loopy-ness",
   "main": "dist/tatting.cjs.js",
   "module": "dist/tatting.mjs",
