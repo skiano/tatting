@@ -14,8 +14,8 @@
     "build:cjs": "rollup --config rollup.cjs.js",
     "build": "npm run build:mjs | npm run build:umd | npm run build:cjs",
     "dev": "rollup --config rollup.cjs.js --watch",
-    "prepublish": "npm run build",
-    "size": "disty --path dist"
+    "size": "disty --path dist",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
