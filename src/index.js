@@ -34,6 +34,15 @@ const t = (/**/ isPlaying, timer, head, tail) => {
     clearInterval(timer);
   }
 
+  function whileLoop(condition, cb) {
+    if (condition()) {
+      enqueue(() => {
+        cb();
+        whileLoop(condition, cb);
+      });
+    }
+  }
+
   function forLoop(cb, start, end, delta = 1) {
     if (
       delta > 0
@@ -53,20 +62,11 @@ const t = (/**/ isPlaying, timer, head, tail) => {
     }, 0, items.length - 1);
   }
 
-  function whileLoop(condition, cb) {
-    if (condition()) {
-      enqueue(() => {
-        cb();
-        whileLoop(condition, cb);
-      });
-    }
-  }
-
   return {
     add: enqueue,
+    while: whileLoop,
     for: forLoop,
     each: eachLoop,
-    while: whileLoop,
     flush,
     play,
     pause,

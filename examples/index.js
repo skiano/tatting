@@ -19,6 +19,10 @@ s.while(() => a--, () => console.log(`while a ${i}!`));
 s.play(1000);
 
 setTimeout(() => {
+  s.add(() => {
+    console.log('after pause!');
+  });
+
   s.pause();
 
   setTimeout(() => {
