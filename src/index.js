@@ -1,5 +1,5 @@
 const t = (/**/ isPlaying, timer, head, tail) => {
-  var enqueue = (cb, /**/ task) => {
+  function enqueue(cb, /**/ task) {
     task = { cb };
 
     if (!head) head = task;
@@ -10,8 +10,8 @@ const t = (/**/ isPlaying, timer, head, tail) => {
       play();
     }
   }
-  ,
-  dequeue = () => {
+
+  function dequeue() {
     if (head) {
       head.cb();
       head = head.next;
@@ -19,22 +19,22 @@ const t = (/**/ isPlaying, timer, head, tail) => {
       clearInterval(timer);
     }
   }
-  ,
-  flush = () => {
+
+  function flush() {
     while (head) { dequeue(); }
   }
-  ,
-  play = (interval = 1000) => {
+
+  function play(interval) {
     isPlaying = true
     timer = setInterval(dequeue, interval);
   }
-  ,
-  pause = () => {
+
+  function pause() {
     isPlaying = false;
     clearInterval(timer);
   }
-  ,
-  forLoop = (cb, start, end, delta = 1) => {
+
+  function forLoop(cb, start, end, delta = 1) {
     if (
       delta > 0
         ? (start <= end)
@@ -46,14 +46,14 @@ const t = (/**/ isPlaying, timer, head, tail) => {
       });
     }
   }
-  ,
-  eachLoop = (items, cb) => {
+
+  function eachLoop(items, cb) {
     forLoop((i) => {
       cb(items[i], i);
     }, 0, items.length - 1);
   }
-  ,
-  whileLoop = (condition, cb) => {
+
+  function whileLoop(condition, cb) {
     if (condition()) {
       enqueue(() => {
         cb();
@@ -61,7 +61,7 @@ const t = (/**/ isPlaying, timer, head, tail) => {
       });
     }
   }
-  ;
+
   return {
     add: enqueue,
     for: forLoop,
