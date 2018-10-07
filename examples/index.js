@@ -6,8 +6,8 @@ const s2 = tatting();
 // a shared instance
 console.log(s === s2);
 
-s.for((i) => console.log('loop 1', i), 0, 2);
-s.for((i) => console.log('loop 2', i), 0, 2);
+s.for(0, 4, 2, (i) => console.log('loop 1', i));
+s.for(0, 2, 1, (i) => console.log('loop 2', i));
 s.each(['a', 'b', 'c'], (v, i) => console.log('each 1', v, i));
 
 let i = 10

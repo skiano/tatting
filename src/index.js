@@ -43,7 +43,7 @@ const t = (/**/ isPlaying, timer, head, tail) => {
     }
   }
 
-  function forLoop(cb, start, end, delta = 1) {
+  function forLoop(start, end, delta, cb) {
     if (
       delta > 0
         ? (start <= end)
@@ -51,7 +51,7 @@ const t = (/**/ isPlaying, timer, head, tail) => {
     ) {
       enqueue(() => {
         cb(start);
-        forLoop(cb, start + delta, end);
+        forLoop(start + delta, end, delta, cb);
       });
     }
   }
